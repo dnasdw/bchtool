@@ -57,6 +57,7 @@ bool CBch::ExportFile()
 	SBchHeader<SFileSectionType0>* pBchHeader = reinterpret_cast<SBchHeader<SFileSectionType0>*>(pBch);
 	switch (pBchHeader->SectionOffset[0])
 	{
+	case sizeof(SBchHeader<SFileSectionType0>) - 4:
 	case sizeof(SBchHeader<SFileSectionType0>):
 		bResult = exportFile<SFileSectionType0>(pBch);
 		break;
@@ -89,6 +90,7 @@ bool CBch::ImportFile()
 	SBchHeader<SFileSectionType0>* pBchHeader = reinterpret_cast<SBchHeader<SFileSectionType0>*>(pBch);
 	switch (pBchHeader->SectionOffset[0])
 	{
+	case sizeof(SBchHeader<SFileSectionType0>) - 4:
 	case sizeof(SBchHeader<SFileSectionType0>):
 		bResult = importFile<SFileSectionType0>(pBch);
 		break;

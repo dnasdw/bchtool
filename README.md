@@ -5,6 +5,7 @@ A tool for exporting/importing bch file.
 ## History
 
 - v1.0.0 @ 2017.07.30 - First release
+- v1.0.1 @ 2017.10.23 - Support very old version
 
 ## Platforms
 
