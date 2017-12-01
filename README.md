@@ -6,6 +6,7 @@ A tool for exporting/importing bch file.
 
 - v1.0.0 @ 2017.07.30 - First release
 - v1.0.1 @ 2017.10.23 - Support very old version
+- v1.1.0 @ 2017.12.01 - Fix L4/A4 section
 
 ## Platforms
 

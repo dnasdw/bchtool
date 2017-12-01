@@ -163,9 +163,9 @@ public:
 	static const int s_nDecodeTransByte[64];
 private:
 	template<typename FileSectionType>
-	bool exportFile(u8* a_pBch);
+	bool exportFile(u8* a_pBch, n32 a_nL4A4Section);
 	template<typename FileSectionType>
-	bool importFile(u8* a_pBch);
+	bool importFile(u8* a_pBch, n32 a_nL4A4Section);
 	static int decode(u8* a_pBuffer, n32 a_nWidth, n32 a_nHeight, n32 a_nFormat, pvrtexture::CPVRTexture** a_pPVRTexture);
 	static void encode(u8* a_pData, n32 a_nWidth, n32 a_nHeight, n32 a_nFormat, n32 a_nMipmapLevel, n32 a_nBPP, u8** a_pBuffer);
 	UString m_sFileName;

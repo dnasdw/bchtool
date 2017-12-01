@@ -59,10 +59,10 @@ bool CBch::ExportFile()
 	{
 	case sizeof(SBchHeader<SFileSectionType0>) - 4:
 	case sizeof(SBchHeader<SFileSectionType0>):
-		bResult = exportFile<SFileSectionType0>(pBch);
+		bResult = exportFile<SFileSectionType0>(pBch, SFileSectionType0::RAW);
 		break;
 	case sizeof(SBchHeader<SFileSectionType1>):
-		bResult = exportFile<SFileSectionType1>(pBch);
+		bResult = exportFile<SFileSectionType1>(pBch, SFileSectionType1::RAW_EXT);
 		break;
 	default:
 		bResult = false;
@@ -92,10 +92,10 @@ bool CBch::ImportFile()
 	{
 	case sizeof(SBchHeader<SFileSectionType0>) - 4:
 	case sizeof(SBchHeader<SFileSectionType0>):
-		bResult = importFile<SFileSectionType0>(pBch);
+		bResult = importFile<SFileSectionType0>(pBch, SFileSectionType0::RAW);
 		break;
 	case sizeof(SBchHeader<SFileSectionType1>):
-		bResult = importFile<SFileSectionType1>(pBch);
+		bResult = importFile<SFileSectionType1>(pBch, SFileSectionType1::RAW_EXT);
 		break;
 	default:
 		bResult = false;
@@ -133,7 +133,7 @@ bool CBch::IsBchFile(const UString& a_sFileName)
 }
 
 template<typename FileSectionType>
-bool CBch::exportFile(u8* a_pBch)
+bool CBch::exportFile(u8* a_pBch, n32 a_nL4A4Section)
 {
 	bool bResult = true;
 	SBchHeader<FileSectionType>* pBchHeader = reinterpret_cast<SBchHeader<FileSectionType>*>(a_pBch);
@@ -266,7 +266,12 @@ bool CBch::exportFile(u8* a_pBch)
 		{
 			STextureInfo& textureInfo = vTextureInfo[j];
 			pvrtexture::CPVRTexture* pPVRTexture = nullptr;
-			if (decode(a_pBch + pBchHeader->SectionOffset[FileSectionType::RAW] + textureInfo.Offset, textureInfo.Width, textureInfo.Height, textureInfo.Format, &pPVRTexture) == 0)
+			n32 nSection = FileSectionType::RAW;
+			if (textureInfo.Format == kTextureFormatL4 || textureInfo.Format == kTextureFormatA4)
+			{
+				nSection = a_nL4A4Section;
+			}
+			if (decode(a_pBch + pBchHeader->SectionOffset[nSection] + textureInfo.Offset, textureInfo.Width, textureInfo.Height, textureInfo.Format, &pPVRTexture) == 0)
 			{
 				UString sPngFileName = m_sDirName + USTR("/") + sTextureName;
 				if (vTextureInfo.size() == 1)
@@ -343,7 +348,7 @@ bool CBch::exportFile(u8* a_pBch)
 }
 
 template<typename FileSectionType>
-bool CBch::importFile(u8* a_pBch)
+bool CBch::importFile(u8* a_pBch, n32 a_nL4A4Section)
 {
 	bool bResult = true;
 	SBchHeader<FileSectionType>* pBchHeader = reinterpret_cast<SBchHeader<FileSectionType>*>(a_pBch);
@@ -573,7 +578,12 @@ bool CBch::importFile(u8* a_pBch)
 			delete[] pRowPointers;
 			fclose(fp);
 			pvrtexture::CPVRTexture* pPVRTexture = nullptr;
-			bool bSame = decode(a_pBch + pBchHeader->SectionOffset[FileSectionType::RAW] + textureInfo.Offset, textureInfo.Width, textureInfo.Height, textureInfo.Format, &pPVRTexture) == 0 && memcmp(pPVRTexture->getDataPtr(), pData, textureInfo.Width * textureInfo.Height * 4) == 0;
+			n32 nSection = FileSectionType::RAW;
+			if (textureInfo.Format == kTextureFormatL4 || textureInfo.Format == kTextureFormatA4)
+			{
+				nSection = a_nL4A4Section;
+			}
+			bool bSame = decode(a_pBch + pBchHeader->SectionOffset[nSection] + textureInfo.Offset, textureInfo.Width, textureInfo.Height, textureInfo.Format, &pPVRTexture) == 0 && memcmp(pPVRTexture->getDataPtr(), pData, textureInfo.Width * textureInfo.Height * 4) == 0;
 			delete pPVRTexture;
 			if (!bSame)
 			{
@@ -586,7 +596,7 @@ bool CBch::importFile(u8* a_pBch)
 					n32 nMipmapWidth = textureInfo.Width >> l;
 					nTextureSize += nMipmapHeight * nMipmapWidth * s_nBPP[textureInfo.Format] / 8;
 				}
-				memcpy(a_pBch + pBchHeader->SectionOffset[FileSectionType::RAW] + textureInfo.Offset, pBuffer, nTextureSize);
+				memcpy(a_pBch + pBchHeader->SectionOffset[nSection] + textureInfo.Offset, pBuffer, nTextureSize);
 				delete[] pBuffer;
 			}
 			delete[] pData;
