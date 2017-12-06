@@ -267,7 +267,7 @@ bool CBch::exportFile(u8* a_pBch, n32 a_nL4A4Section)
 			STextureInfo& textureInfo = vTextureInfo[j];
 			pvrtexture::CPVRTexture* pPVRTexture = nullptr;
 			n32 nSection = FileSectionType::RAW;
-			if (textureInfo.Format == kTextureFormatL4 || textureInfo.Format == kTextureFormatA4)
+			if ((textureInfo.Format == kTextureFormatL4 || textureInfo.Format == kTextureFormatA4) && textureInfo.Offset < pBchHeader->SectionSize[a_nL4A4Section])
 			{
 				nSection = a_nL4A4Section;
 			}
@@ -579,7 +579,7 @@ bool CBch::importFile(u8* a_pBch, n32 a_nL4A4Section)
 			fclose(fp);
 			pvrtexture::CPVRTexture* pPVRTexture = nullptr;
 			n32 nSection = FileSectionType::RAW;
-			if (textureInfo.Format == kTextureFormatL4 || textureInfo.Format == kTextureFormatA4)
+			if ((textureInfo.Format == kTextureFormatL4 || textureInfo.Format == kTextureFormatA4) && textureInfo.Offset < pBchHeader->SectionSize[a_nL4A4Section])
 			{
 				nSection = a_nL4A4Section;
 			}
