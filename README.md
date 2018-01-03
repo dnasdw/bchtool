@@ -4,10 +4,20 @@ A tool for exporting/importing bch file.
 
 ## History
 
+- v1.3.0 @ 2018.01.04 - A new beginning
+
+### v1.2
+
+- v1.2.0 @ 2017.12.06 - Check L4/A4 section size
+
+### v1.1
+
+- v1.1.0 @ 2017.12.01 - Fix L4/A4 section
+
+### v1.0
+
 - v1.0.0 @ 2017.07.30 - First release
 - v1.0.1 @ 2017.10.23 - Support very old version
-- v1.1.0 @ 2017.12.01 - Fix L4/A4 section
-- v1.2.0 @ 2017.12.06 - Check L4/A4 section size
 
 ## Platforms
 
