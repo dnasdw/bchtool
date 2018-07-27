@@ -5,6 +5,7 @@ A tool for exporting/importing bch file.
 ## History
 
 - v1.3.0 @ 2018.01.04 - A new beginning
+- v1.3.1 @ 2018.07.27 - Update cmake
 
 ### v1.2
 
@@ -37,16 +38,16 @@ A tool for exporting/importing bch file.
 
 - make 64-bit version
 ~~~
-mkdir project
-cd project
+mkdir build
+cd build
 cmake -DUSE_DEP=OFF ..
 make
 ~~~
 
 - make 32-bit version
 ~~~
-mkdir project
-cd project
+mkdir build
+cd build
 cmake -DBUILD64=OFF -DUSE_DEP=OFF ..
 make
 ~~~
