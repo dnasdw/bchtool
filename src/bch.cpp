@@ -569,9 +569,9 @@ bool CBch::importFile(u8* a_pBch, n32 a_nL4A4Section)
 			}
 			u8* pData = new u8[nPngWidth * nPngHeight * 4];
 			png_bytepp pRowPointers = new png_bytep[nPngHeight];
-			for (n32 j = 0; j < nPngHeight; j++)
+			for (n32 k = 0; k < nPngHeight; k++)
 			{
-				pRowPointers[j] = pData + j * nPngWidth * 4;
+				pRowPointers[k] = pData + k * nPngWidth * 4;
 			}
 			png_read_image(pPng, pRowPointers);
 			png_destroy_read_struct(&pPng, &pInfo, &pEndInfo);

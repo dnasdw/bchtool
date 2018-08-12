@@ -6,6 +6,7 @@ A tool for exporting/importing bch file.
 
 - v1.3.0 @ 2018.01.04 - A new beginning
 - v1.3.1 @ 2018.07.27 - Update cmake
+- v1.3.2 @ 2018.08.12 - Rename
 
 ### v1.2
 
