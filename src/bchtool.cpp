@@ -116,8 +116,8 @@ int CBchTool::Help()
 	UPrintf(USTR("bchtool %") PRIUS USTR(" by dnasdw\n\n"), AToU(BCHTOOL_VERSION).c_str());
 	UPrintf(USTR("usage: bchtool [option...] [option]...\n"));
 	UPrintf(USTR("sample:\n"));
-	UPrintf(USTR("  bchtool -evfd input.bcmdl outputdir\n"));
-	UPrintf(USTR("  bchtool -ivfd output.bcmdl inputdir\n"));
+	UPrintf(USTR("  bchtool -evfd input.bch outputdir\n"));
+	UPrintf(USTR("  bchtool -ivfd output.bch inputdir\n"));
 	UPrintf(USTR("\n"));
 	UPrintf(USTR("option:\n"));
 	SOption* pOption = s_Option;
